@@ -1,0 +1,30 @@
+/* ============================================= */
+/*                    Layout                     */
+/* ============================================= */
+
+.card {
+    display: flex;
+    background-color: $white;
+    border: solid 3px #dfdfdf;
+    border-radius: 10px;
+    align-items: center;
+    padding: 20px;
+    div h2, div p {
+        margin: 0;
+    }
+    div h2 {
+        margin-bottom: 5px;
+    }
+    div p:last-child {
+        margin-top: 5px;
+    }
+}
+
+main.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 200px minmax(200px, 1fr) 200px;
+    grid-gap: 20px;
+    margin: 20px;
+}
+

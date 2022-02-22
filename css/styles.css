@@ -337,4 +337,56 @@ template {
   display: none;
 }
 
+/* ============================================= */
+/*                   Typography                  */
+/* ============================================= */
+* {
+  font-family: "Dosis", sans-serif;
+}
+
+/* ============================================= */
+/*                      Base                     */
+/* ============================================= */
+body {
+  background-color: #fcfcfc;
+}
+
+/* ============================================= */
+/*                    Layout                     */
+/* ============================================= */
+.card {
+  display: flex;
+  background-color: #ffffff;
+  border: solid 3px #dfdfdf;
+  border-radius: 10px;
+  align-items: center;
+  padding: 20px;
+}
+.card div h2, .card div p {
+  margin: 0;
+}
+.card div h2 {
+  margin-bottom: 5px;
+}
+.card div p:last-child {
+  margin-top: 5px;
+}
+
+main.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 200px minmax(200px, 1fr) 200px;
+  grid-gap: 20px;
+  margin: 20px;
+}
+
+/* ============================================= */
+/*                     Images                    */
+/* ============================================= */
+.card img {
+  border-radius: 50%;
+  height: 110px;
+  margin-right: 20px;
+}
+
 /*# sourceMappingURL=styles.css.map */
