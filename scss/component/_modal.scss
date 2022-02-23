@@ -1,0 +1,55 @@
+/* ============================================= */
+/*                     Modal                     */
+/* ============================================= */
+
+body {
+    position: relative;
+    .overlay {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(128, 128, 128, 0.43);
+    }
+    .hidden {
+        display: none;
+    }
+    .modal {
+        position: relative;
+        width: 250px;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 150px;
+        text-align: center;
+        background-color: $white;
+        border-radius: 13px;
+        padding: 40px 80px;
+        .modal-close {
+            position: absolute;
+            right: 30px;
+            top: 10px;
+            font-size: 20px;
+            border: none;
+            background-color: initial;
+        }
+        .modal-text {
+            img {
+                border-radius: 50%;
+            }
+            .text-container {
+                .phone {
+                    margin-top: 20px;
+                }
+                .city {
+                    margin-bottom: 35px;
+                }
+                .border {
+                    border-bottom: 2.5px solid $border-grey;
+                }
+                
+            }
+        }
+        
+    }
+}

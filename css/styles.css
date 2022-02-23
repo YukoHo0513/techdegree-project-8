@@ -343,6 +343,16 @@ template {
 * {
   font-family: "Dosis", sans-serif;
 }
+* h2 {
+  color: #485358;
+  margin-bottom: 0;
+}
+* p {
+  color: #5755555d;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 5px;
+}
 
 /* ============================================= */
 /*                      Base                     */
@@ -387,6 +397,55 @@ main.grid-container {
   border-radius: 50%;
   height: 110px;
   margin-right: 20px;
+}
+
+/* ============================================= */
+/*                     Modal                     */
+/* ============================================= */
+body {
+  position: relative;
+}
+body .overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(128, 128, 128, 0.43);
+}
+body .hidden {
+  display: none;
+}
+body .modal {
+  position: relative;
+  width: 250px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 150px;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 13px;
+  padding: 40px 80px;
+}
+body .modal .modal-close {
+  position: absolute;
+  right: 30px;
+  top: 10px;
+  font-size: 20px;
+  border: none;
+  background-color: initial;
+}
+body .modal .modal-text img {
+  border-radius: 50%;
+}
+body .modal .modal-text .text-container .phone {
+  margin-top: 20px;
+}
+body .modal .modal-text .text-container .city {
+  margin-bottom: 35px;
+}
+body .modal .modal-text .text-container .border {
+  border-bottom: 2.5px solid #dfdfdf;
 }
 
 /*# sourceMappingURL=styles.css.map */
