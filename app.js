@@ -1,5 +1,5 @@
 let employees = [];
-const urlAPI = `https://randomuser.me/api/?results=12`;
+const urlAPI = `https://randomuser.me/api/?results=12&nat=us,ca,au`;
 const profileContainer = document.querySelector('.grid-container');
 const overlay = document.querySelector('.overlay');
 const modal = document.querySelector('.modal-content');
@@ -7,6 +7,7 @@ const closeButton = document.querySelector('.modal-close');
 const rightClick = document.querySelector('.right-click');
 const leftClick = document.querySelector('.left-click');
 const modalIndex = document.querySelector('.modal');
+const searchIcon = document.querySelector('.search-icon');
 
 function fetchData(url) {
     return fetch(url)
@@ -20,15 +21,12 @@ function displayEmployees(employeeData) {
     employees = employeeData;
     let employeeHTML = "";
     employees.forEach((employee, index) => {
-        let name = employee.name.first + " " + employee.name.last;
-        let email = employee.email;
-        let city = employee.location.city;
-        let picture = employee.picture.medium; 
+        let {name: {first, last}, email, location: {city}, picture: {medium}} = employee;
         employeeHTML += `
             <div class="card" data-index="${index}">
-                <img src="${picture}" alt="${name}'s profile photo" class="avatar">
+                <img src="${medium}" alt="${first} ${last}'s profile photo" class="avatar">
                 <div class="profile">
-                    <h2>${name}</h2>
+                    <h2>${first} ${last}</h2>
                     <p>${email}</p>
                     <p>${city}</p>
                 </div>
@@ -39,26 +37,18 @@ function displayEmployees(employeeData) {
 }
 
 function displayModal(index) {
-    console.log(index)
-    let name = employees[index].name.first + " " + employees[index].name.last;
-    let email = employees[index].email;
-    let city = employees[index].location.city;
-    let picture = employees[index].picture.large; 
-    let phone = employees[index].phone;
-    let dob = employees[index].dob.date;
-    let date = (new Date(dob)).toLocaleDateString('en-US');
-    let address = employees[index].location.street.number + " " + employees[index].location.street.name + ", " + employees[index].location.state + " " + employees[index].location.postcode
-
+    let {name: {first, last}, email, location: {street: {number, name: streetName}, city, state, postcode}, picture: {large}, phone, dob: {date}} = employees[index];
+    let birthDate = (new Date(date)).toLocaleDateString('en-US');
     modal.innerHTML = `
-        <img src="${picture}" alt="${name}'s profile photo">
+        <img src="${large}" alt="${first} ${last}'s profile photo">
         <div class="text-container" data-index="${index}">
-            <h2>${name}</h2>
+            <h2>${first} ${last}</h2>
             <p>${email}</p>
             <p class="city">${city}</p>
             <div class="border"></div>
             <p class="phone">${phone}</p>
-            <p>${address}</p>
-            <p>Birthday: ${date}</p>
+            <p>${number} ${streetName} ${state} ${postcode}</p>
+            <p>Birthday: ${birthDate}</p>
         </div>
     `;
     overlay.classList.remove("hidden");
@@ -119,6 +109,10 @@ leftClick.addEventListener('click', (e) => {
         displayModal(previousIndex);
     }
     displayModal(previousIndex);
+})
+
+searchIcon.addEventListener('click', ()=> {
+    
 })
 
 function checkStatus(response) {
