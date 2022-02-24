@@ -364,6 +364,11 @@ body {
 /* ============================================= */
 /*                    Layout                     */
 /* ============================================= */
+header h1 {
+  margin: 0;
+  padding: 30px;
+}
+
 .card {
   display: flex;
   background-color: #ffffff;
@@ -385,7 +390,7 @@ body {
 main.grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 200px minmax(200px, 1fr) 200px;
+  grid-template-rows: 200px minmax(200px, 1fr) 200px 200px;
   grid-gap: 20px;
   margin: 20px;
 }
@@ -435,16 +440,16 @@ body .modal .modal-close {
   border: none;
   background-color: initial;
 }
-body .modal .modal-text img {
+body .modal .modal-content img {
   border-radius: 50%;
 }
-body .modal .modal-text .text-container .phone {
+body .modal .modal-content .text-container .phone {
   margin-top: 20px;
 }
-body .modal .modal-text .text-container .city {
+body .modal .modal-content .text-container .city {
   margin-bottom: 35px;
 }
-body .modal .modal-text .text-container .border {
+body .modal .modal-content .text-container .border {
   border-bottom: 2.5px solid #dfdfdf;
 }
 
