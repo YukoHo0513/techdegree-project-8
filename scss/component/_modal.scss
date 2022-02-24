@@ -33,6 +33,22 @@ body {
             border: none;
             background-color: initial;
         }
+        .right-click {
+            position: absolute;
+            right: 10px;
+            top: 250px;
+            border: none;
+            background-color: initial;
+            font-size: 30px;
+        }
+        .left-click {
+            position: absolute;
+            left: 10px;
+            top: 250px;
+            border: none;
+            background-color: initial;
+            font-size: 30px;
+        }
         .modal-content {
             img {
                 border-radius: 50%;

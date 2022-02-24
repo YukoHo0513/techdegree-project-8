@@ -4,6 +4,9 @@ const profileContainer = document.querySelector('.grid-container');
 const overlay = document.querySelector('.overlay');
 const modal = document.querySelector('.modal-content');
 const closeButton = document.querySelector('.modal-close');
+const rightClick = document.querySelector('.right-click');
+const leftClick = document.querySelector('.left-click');
+const modalIndex = document.querySelector('.modal');
 
 function fetchData(url) {
     return fetch(url)
@@ -45,9 +48,10 @@ function displayModal(index) {
     let dob = employees[index].dob.date;
     let date = (new Date(dob)).toLocaleDateString('en-US');
     let address = employees[index].location.street.number + " " + employees[index].location.street.name + ", " + employees[index].location.state + " " + employees[index].location.postcode
+
     modal.innerHTML = `
         <img src="${picture}" alt="${name}'s profile photo">
-        <div class="text-container">
+        <div class="text-container" data-index="${index}">
             <h2>${name}</h2>
             <p>${email}</p>
             <p class="city">${city}</p>
@@ -65,21 +69,58 @@ profileContainer.addEventListener('click', (e) => {
         if (e.target.className === "card") {
             let stringIndex = e.target.getAttribute("data-index");
             let numIndex = parseInt(stringIndex);
+            modalIndex.setAttribute("data-index", stringIndex);
             displayModal(numIndex);
         } else if (e.target.parentElement.className === "profile") {
             let stringIndex = e.target.parentElement.parentElement.getAttribute("data-index");
             let numIndex = parseInt(stringIndex);
+            modalIndex.setAttribute("data-index", stringIndex);
             displayModal(numIndex);
         } else if (e.target.parentElement.className === "card") {
             let stringIndex = e.target.parentElement.getAttribute("data-index");
             let numIndex = parseInt(stringIndex);
+            modalIndex.setAttribute("data-index", stringIndex);
             displayModal(numIndex);
         }
     }   
 })
+
+let count = 0;
+
 closeButton.addEventListener('click', ()=> {
     overlay.className = "hidden";
+    count = 0;
 }) 
+
+rightClick.addEventListener('click', (e) => {
+    let stringIndex = e.target.parentElement.getAttribute("data-index");
+    let numIndex = parseInt(stringIndex);
+    count += 1;
+    let nextIndex = numIndex + count;
+    if (nextIndex === employees.length) {
+        e.target.parentElement.setAttribute("data-index", 0);
+        count = 0;
+        nextIndex = 0;
+        displayModal(nextIndex);
+    }
+    displayModal(nextIndex);
+})
+
+leftClick.addEventListener('click', (e) => {
+
+    let stringIndex = e.target.parentElement.getAttribute("data-index");
+    let numIndex = parseInt(stringIndex);
+    count -= 1;
+    let previousIndex = numIndex + count;
+    if (previousIndex === -1) {
+        e.target.parentElement.setAttribute("data-index", 11);
+        count = 0;
+        previousIndex = 11;
+        displayModal(previousIndex);
+    }
+    displayModal(previousIndex);
+})
+
 function checkStatus(response) {
     if (response.ok) {
         return Promise.resolve(response);
@@ -88,3 +129,4 @@ function checkStatus(response) {
     }
 }
 fetchData(urlAPI);
+

@@ -440,6 +440,22 @@ body .modal .modal-close {
   border: none;
   background-color: initial;
 }
+body .modal .right-click {
+  position: absolute;
+  right: 10px;
+  top: 250px;
+  border: none;
+  background-color: initial;
+  font-size: 30px;
+}
+body .modal .left-click {
+  position: absolute;
+  left: 10px;
+  top: 250px;
+  border: none;
+  background-color: initial;
+  font-size: 30px;
+}
 body .modal .modal-content img {
   border-radius: 50%;
 }
