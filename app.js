@@ -8,6 +8,7 @@ const rightClick = document.querySelector('.right-click');
 const leftClick = document.querySelector('.left-click');
 const modalIndex = document.querySelector('.modal');
 const searchIcon = document.querySelector('.search-icon');
+const input = document.getElementById('search');
 
 function fetchData(url) {
     return fetch(url)
@@ -37,6 +38,8 @@ function displayEmployees(employeeData) {
 }
 
 function displayModal(index) {
+    count = 0;
+    modalIndex.setAttribute("data-index", `${index}`);
     let {name: {first, last}, email, location: {street: {number, name: streetName}, city, state, postcode}, picture: {large}, phone, dob: {date}} = employees[index];
     let birthDate = (new Date(date)).toLocaleDateString('en-US');
     modal.innerHTML = `
@@ -80,6 +83,7 @@ let count = 0;
 closeButton.addEventListener('click', ()=> {
     overlay.className = "hidden";
     count = 0;
+    input.value = "";
 }) 
 
 rightClick.addEventListener('click', (e) => {
@@ -97,7 +101,6 @@ rightClick.addEventListener('click', (e) => {
 })
 
 leftClick.addEventListener('click', (e) => {
-
     let stringIndex = e.target.parentElement.getAttribute("data-index");
     let numIndex = parseInt(stringIndex);
     count -= 1;
@@ -112,7 +115,26 @@ leftClick.addEventListener('click', (e) => {
 })
 
 searchIcon.addEventListener('click', ()=> {
-    
+    let lowerCaseName = input.value.toLowerCase();
+    if (input.value.length > 0 && input.value) {
+        for (let i = 0; i < employees.length; i++) {
+            overlay.className = "overlay";
+            let lowerFirstName = employees[i].name.first.toLowerCase();
+            let lowerLastName = employees[i].name.last.toLowerCase();
+            if (lowerFirstName.includes(lowerCaseName) || lowerLastName.includes(lowerCaseName)) {
+                overlay.className = "overlay";
+                console.log("here you go!");
+                displayModal(i); 
+                break;           
+            } else {
+                console.log("wrong!");
+                overlay.className = "hidden";
+            }
+        }
+    } else {
+        console.log("empty!");
+        overlay.className = "hidden";
+    }
 })
 
 function checkStatus(response) {

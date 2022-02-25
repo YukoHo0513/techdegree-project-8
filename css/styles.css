@@ -348,7 +348,7 @@ template {
   margin-bottom: 0;
 }
 * p {
-  color: #5755555d;
+  color: #5553538f;
   font-size: 18px;
   font-weight: 600;
   margin-top: 5px;
@@ -377,6 +377,10 @@ header .search-box input {
   border: #dfdfdf solid 3px;
   border-radius: 8px;
 }
+header .search-box input:focus, header .search-box input:hover {
+  border-color: #f09b9b;
+  outline: none;
+}
 header .search-box label {
   padding-left: 5px;
   font-size: 20px;
@@ -399,6 +403,11 @@ header .search-box label {
 }
 .card div p:last-child {
   margin-top: 5px;
+}
+
+.card:hover {
+  cursor: pointer;
+  border-color: #f09b9b;
 }
 
 main.grid-container {
