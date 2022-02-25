@@ -16,6 +16,7 @@ function fetchData(url) {
         .then(response => response.json())
         .then(data => data.results)
         .then(displayEmployees)
+        .then(eventListenerFunc)
         .catch(error => console.log('Looks like there was a problem', error))
 }
 function displayEmployees(employeeData) {
@@ -36,7 +37,25 @@ function displayEmployees(employeeData) {
     });
     profileContainer.innerHTML = employeeHTML;
 }
-
+function filterEmployees(arr) {
+    const profileTiles  = profileContainer.children;
+    let lowerCaseName = input.value.toLowerCase();
+    if (input.value.length > 0 && input.value) {
+        for (let j=0; j < profileTiles.length; j++) {
+            profileTiles[j].style.display = "none";
+        }    
+        for (let i = 0; i < arr.length; i++) {
+            let lowerFirstName = arr[i].name.first.toLowerCase();
+            let lowerLastName = arr[i].name.last.toLowerCase();
+            if (lowerFirstName.includes(lowerCaseName) || lowerLastName.includes(lowerCaseName)) {
+                profileTiles[i].style.display = "";
+                console.log("here you go!");
+            } 
+        }
+    } else {
+        console.log("empty!");
+    }
+}
 function displayModal(index) {
     count = 0;
     modalIndex.setAttribute("data-index", `${index}`);
@@ -56,27 +75,36 @@ function displayModal(index) {
     `;
     overlay.classList.remove("hidden");
 }
-profileContainer.addEventListener('click', (e) => {
-    overlay.className = "overlay"
-    if (e.target.className === "card" || e.target.parentElement.className === "profile" || e.target.parentElement.className === "card") {
-        if (e.target.className === "card") {
-            let stringIndex = e.target.getAttribute("data-index");
-            let numIndex = parseInt(stringIndex);
-            modalIndex.setAttribute("data-index", stringIndex);
-            displayModal(numIndex);
-        } else if (e.target.parentElement.className === "profile") {
-            let stringIndex = e.target.parentElement.parentElement.getAttribute("data-index");
-            let numIndex = parseInt(stringIndex);
-            modalIndex.setAttribute("data-index", stringIndex);
-            displayModal(numIndex);
-        } else if (e.target.parentElement.className === "card") {
-            let stringIndex = e.target.parentElement.getAttribute("data-index");
-            let numIndex = parseInt(stringIndex);
-            modalIndex.setAttribute("data-index", stringIndex);
-            displayModal(numIndex);
-        }
-    }   
-})
+
+function eventListenerFunc() {
+    const cards = profileContainer.children;
+    for (let card of cards) {
+        card.addEventListener('click', (e) => {
+            overlay.className = "overlay";
+            console.log("clicked");
+            if (e.target.className === "card" || e.target.parentElement.className === "profile" || e.target.parentElement.className === "card") {
+                if (e.target.style.display !== "none") {
+                    if (e.target.className === "card") {
+                        let stringIndex = e.target.getAttribute("data-index");
+                        let numIndex = parseInt(stringIndex);
+                        modalIndex.setAttribute("data-index", stringIndex);
+                        displayModal(numIndex);
+                    } else if (e.target.parentElement.className === "profile") {
+                        let stringIndex = e.target.parentElement.parentElement.getAttribute("data-index");
+                        let numIndex = parseInt(stringIndex);
+                        modalIndex.setAttribute("data-index", stringIndex);
+                        displayModal(numIndex);
+                    } else if (e.target.parentElement.className === "card") {
+                        let stringIndex = e.target.parentElement.getAttribute("data-index");
+                        let numIndex = parseInt(stringIndex);
+                        modalIndex.setAttribute("data-index", stringIndex);
+                        displayModal(numIndex);
+                    }
+                }
+            }   
+        })
+    };
+}
 
 let count = 0;
 
@@ -84,6 +112,10 @@ closeButton.addEventListener('click', ()=> {
     overlay.className = "hidden";
     count = 0;
     input.value = "";
+    const profileTiles  = profileContainer.children;
+    for (let j=0; j < profileTiles.length; j++) {
+        profileTiles[j].style.display = "";
+    }    
 }) 
 
 rightClick.addEventListener('click', (e) => {
@@ -114,27 +146,18 @@ leftClick.addEventListener('click', (e) => {
     displayModal(previousIndex);
 })
 
-searchIcon.addEventListener('click', ()=> {
-    let lowerCaseName = input.value.toLowerCase();
-    if (input.value.length > 0 && input.value) {
-        for (let i = 0; i < employees.length; i++) {
-            overlay.className = "overlay";
-            let lowerFirstName = employees[i].name.first.toLowerCase();
-            let lowerLastName = employees[i].name.last.toLowerCase();
-            if (lowerFirstName.includes(lowerCaseName) || lowerLastName.includes(lowerCaseName)) {
-                overlay.className = "overlay";
-                console.log("here you go!");
-                displayModal(i); 
-                break;           
-            } else {
-                console.log("wrong!");
-                overlay.className = "hidden";
-            }
-        }
-    } else {
-        console.log("empty!");
-        overlay.className = "hidden";
+search.addEventListener('keyup', () => {
+    if (input.value.length === 0) {
+        const profileTiles  = profileContainer.children;
+        for (let j=0; j < profileTiles.length; j++) {
+            profileTiles[j].style.display = "";
+        }    
+    
     }
+})
+
+searchIcon.addEventListener('click', ()=> {
+    filterEmployees(employees);
 })
 
 function checkStatus(response) {
