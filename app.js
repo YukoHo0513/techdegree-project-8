@@ -29,7 +29,7 @@ function displayEmployees(employeeData) {
                 <img src="${medium}" alt="${first} ${last}'s profile photo" class="avatar">
                 <div class="profile">
                     <h2>${first} ${last}</h2>
-                    <p>${email}</p>
+                    <p class="email-break">${email}</p>
                     <p>${city}</p>
                 </div>
             </div>
